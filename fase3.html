@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <!-- Adiciona a fonte Poppins do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #fff9c4; /* Cor de fundo amarelo claro */
+            font-family: Arial, sans-serif;
+            background-color: #0e0e0e;
+            background-image: url('f3.png'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Poppins', sans-serif; /* Aplica a fonte Poppins */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center; /* Centraliza o texto */
+        }
+
+        #timer {
+            font-size: 3rem; /* Tamanho do cronômetro */
+            margin-bottom: 3rem;
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 200px);
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .memory-card {
+            width: 188px;
+            height: 230px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transform: scale(1);
+            transition: transform 0.5s;
+        }
+
+        .memory-card:active {
+            transform: scale(0.97);
+            transition: transform 0.2s;
+        }
+
+        .memory-card.flip .memory-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card .front-face,
+        .memory-card .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            backface-visibility: hidden;
+        }
+
+        .memory-card .front-face {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card .back-face {
+            background: url('verso.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .memory-card.match {
+            background-color: #b0bec5;
+            cursor: default;
+        }
+        #timer {
+    font-size: 3rem; /* Tamanho do cronômetro */
+    margin-bottom: 3rem;
+    color: #ffffff; /* Cor branca */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1),   /* Efeito de brilho maior */
+                 0 0 40px rgba(255, 255, 255, 0.8),
+                 0 0 60px rgba(255, 255, 255, 0.6),
+                 0 0 80px rgba(255, 255, 255, 0.4);
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="timer">00:30</div>
+    
+
+    <div class="memory-game">
+        <div class="memory-card" data-card="1">
+            <div class="memory-card-inner">
+                <img src="A.jpg" alt="Card 1" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="1">
+            <div class="memory-card-inner">
+                <img src="A1.jpg" alt="Card 1" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="2">
+            <div class="memory-card-inner">
+                <img src="B.jpg" alt="Card 2" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="2">
+            <div class="memory-card-inner">
+                <img src="B1.jpg" alt="Card 2" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="3">
+            <div class="memory-card-inner">
+                <img src="J.jpg" alt="Card 3" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="3">
+            <div class="memory-card-inner">
+                <img src="J1.jpg" alt="Card 3" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="4">
+            <div class="memory-card-inner">
+                <img src="M.jpg" alt="Card 4" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+        <div class="memory-card" data-card="4">
+            <div class="memory-card-inner">
+                <img src="M1.jpg" alt="Card 4" class="front-face">
+                <div class="back-face"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.memory-card');
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let matches = 0;
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+
+            if (isMatch) {
+                disableCards();
+                matches++;
+                console.log(`Matches: ${matches}`); // Adiciona um log para verificar o número de pares
+                if (matches === 4) {  // Número total de pares ajustado para 4 pares
+                    setTimeout(() => {
+                        console.log('Você ganhou!'); // Adiciona um log para verificar se o redirecionamento está funcionando
+                        window.location.href = 'vitoria.html';
+                    }, 1000);
+                }
+            } else {
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            firstCard.classList.add('match');
+            secondCard.classList.add('match');
+
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+
+                resetBoard();
+            }, 1500);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+
+        (function shuffle() {
+            cards.forEach(card => {
+                let randomPos = Math.floor(Math.random() * cards.length);
+                card.style.order = randomPos;
+            });
+        })();
+
+        cards.forEach(card => card.addEventListener('click', flipCard));
+
+        // Cronômetro
+        let timeLeft = 30; // 30 segundos
+        const timer = document.getElementById('timer');
+
+        const countdown = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            timer.textContent = `${minutes}:${seconds}`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                window.location.href = 'derrota.html';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

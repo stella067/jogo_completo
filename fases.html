@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seletor de Fases do Jogo</title>
+  <script src="https://unpkg.com/tailwindcss@^2"></script>
+  <style>
+    body {
+      background-image: url('Design.png'); /* Imagem de fundo */
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .level-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Espaçamento entre os quadrados */
+    }
+    .level {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: #9a4dff;
+      color: black;
+      cursor: pointer;
+    }
+    .locked {
+      background-color: gray;
+      color: transparent;
+      background-image: url('https://img.icons8.com/ios-filled/50/ffffff/lock--v1.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: not-allowed;
+    }
+    .unlocked {
+      background-color: #7441b8;
+      color: black;
+      cursor: pointer;
+    }
+    .game-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    .nav-btn {
+      background-color: #824caf;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <!-- Level grid in one row -->
+    <div class="level-container">
+      <!-- Unlocked level 1 -->
+      <div class="unlocked level" id="level1" onclick="startLevel(1)">1</div>
+      <!-- Locked level 2 -->
+      <div class="locked level" id="level2">2</div>
+      <!-- Locked level 3 -->
+      <div class="locked level" id="level3">3</div>
+      <!-- Locked level 4 -->
+      <div class="locked level" id="level4">4</div>
+    </div>
+
+    <!-- Game Container (Onde o jogo roda) -->
+    <div class="game-container text-center" id="gameContainer">
+      <p>Escolha um nível para começar o jogo.</p>
+    </div>
+
+    <!-- Navigation (optional) -->
+    <div class="flex justify-between items-center mt-4">
+      <button class="nav-btn">&larr;</button>
+      <button class="nav-btn">&rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    // Mock unlocking levels based on the current unlocked level
+    let unlockedLevel = 1; // Começa com o nível 1 desbloqueado
+
+    // Função para começar um nível
+    function startLevel(level) {
+      const gameContainer = document.getElementById('gameContainer');
+      if (level === 1) {
+        gameContainer.innerHTML = `  
+          <p>Você está jogando o nível 1. Clique no botão abaixo para completar o nível!</p>
+          <button class='mt-4 bg-green-500 text-white px-4 py-2 rounded' onclick='completeLevel(${level})'>Completar Nível</button>
+        `;
+      } else if (level <= unlockedLevel) {
+        gameContainer.innerHTML = `<p>Você está jogando o nível ${level}. Clique no botão abaixo para completar o nível!</p>
+          <button class='mt-4 bg-green-500 text-white px-4 py-2 rounded' onclick='completeLevel(${level})'>Completar Nível</button>`;
+      } else {
+        alert('Este nível está bloqueado!');
+      }
+    }
+
+    // Função para desbloquear o próximo nível
+    function unlockNextLevel() {
+      if (unlockedLevel < 4) { // Há 4 fases
+        unlockedLevel++;
+        const nextLevel = document.getElementById('level' + unlockedLevel);
+        nextLevel.classList.remove('locked');
+        nextLevel.classList.add('unlocked');
+        nextLevel.setAttribute('onclick', `startLevel(${unlockedLevel})`);
+      }
+    }
+
+    // Função de simulação de completar o nível
+    function completeLevel(level) {
+      alert(`Você completou o nível ${level}!`);
+      
+      // Redireciona para a página correspondente ao nível
+      if (level === 1) {
+        window.location.href = 'fase1.html'; // Redireciona para a fase 1
+      } else if (level === 2) {
+        window.location.href = 'fase2.html'; // Redireciona para a fase 2
+      } else if (level === 3) {
+        window.location.href = 'fase3.html'; // Redireciona para a fase 3
+      } else if (level === 4) {
+        alert('Parabéns! Você completou todos os níveis!');
+        window.location.href = 'fase4.html'; // Redireciona para a fase 4
+      }
+      
+      // Desbloqueia o próximo nível se não for o último
+      if (level < 4) {
+        unlockNextLevel();
+        document.getElementById('gameContainer').innerHTML = '<p>Escolha outro nível para continuar jogando.</p>';
+      }
+    }
+  </script>
+
+</body>
+</html>

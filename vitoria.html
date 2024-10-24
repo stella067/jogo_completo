@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabéns</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0e0e0e;
+            background-image: url('f1.png'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #000000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .text {
+            text-align: center;
+            z-index: 1;
+            position: relative; /* Necessário para o posicionamento da personagem */
+            background-color: rgba(203, 166, 252, 0.7); /* Fundo quadrado com transparência */
+            padding: 20px; /* Adiciona espaçamento dentro do quadrado */
+            border-radius: 10px; /* Borda arredondada (opcional) */
+        }
+
+        .text h1 {
+            font-size: 80px;
+            letter-spacing: 5px;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .text p {
+            font-size: 24px;
+            color: #000000;
+            margin: 20px 0;
+        }
+
+        .continue-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: transparent;
+            color: rgb(114, 53, 17);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .continue-button:hover {
+            background-color: rgb(255, 47, 47);
+            color: #000;
+        }
+
+        .character {
+            position: absolute;
+            top: 40%; /* Ajuste o valor conforme necessário */
+            left: 87%; /* Ajuste o valor conforme necessário */
+            width: 300px; /* Ajuste o tamanho da personagem se necessário */
+            height: auto;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="text">
+        <h1>PARABÉNS!</h1>
+        <p>Parabéns, você passou pela última fase do jogo</p>
+        <button class="continue-button">Continuar</button>
+    </div>
+
+    <!-- Adiciona a personagem -->
+    <img src="perde.png" alt="Character" class="character">
+</body>
+</html>
