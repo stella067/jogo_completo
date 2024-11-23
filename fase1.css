@@ -44,4 +44,6 @@ h1 {
     color: rgb(42, 7, 107);
     text-shadow: 0 0 5px rgba(36, 2, 92, 0.8);
   }
-  
+  #score {
+    color: white;
+}
