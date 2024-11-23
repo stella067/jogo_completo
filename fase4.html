@@ -8,22 +8,42 @@
     <link rel="stylesheet" href="fase4.css" media="screen">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Jogo da Forca</title>
+    <style>
+        /* Estilo para os botões */
+        #start-music-button, .review_btn {
+            background-color: #C8A2C8; /* roxo */
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: fixed;
+            left: 20px; /* Posiciona à esquerda */
+        }
+
+        #start-music-button {
+            bottom: 70px; /* Distância da parte inferior para o botão da música */
+        }
+
+        .review_btn {
+            bottom: 20px; /* Distância da parte inferior para o botão de revisão */
+        }
+
+        #start-music-button:hover, .review_btn:hover {
+            background-color: #8a2be2; /* roxo mais claro */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div id="imagem"></div>
 
-        <div id="palavra-secreta">
-            <!-- <div class="letras">A</div>
-            <div class="letras">F</div>
-            <div class="letras">G</div>
-            <div class="letras">A</div>
-            <div class="letras">S</div>
-            <div class="letras">M</div> -->
-        </div>
+        <div id="palavra-secreta"></div>
 
         <div id="teclado">
             <div class="teclas">
+                <!-- Teclas do teclado -->
                 <button id="tecla-A" onclick="verificaLetraEscolhida('A')">A</button>
                 <button id="tecla-B" onclick="verificaLetraEscolhida('B')">B</button>
                 <button id="tecla-C" onclick="verificaLetraEscolhida('C')">C</button>
@@ -58,54 +78,36 @@
             </div>
         </div>
 
-        <div id="categoria">
-            <!-- CATEGORIA -->
-        </div>
+        <div id="categoria"></div>
 
-        <!-- inicio modal Bootstrap-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body" id="modalBody"></div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        <!-- fim modal Bootstrap--> 
+        <!-- Botão para iniciar música -->
+        <button id="start-music-button" onclick="startBackgroundMusic()">Iniciar Música</button>
 
-        <!-- Modal Adicionar Palavra -->
-        <div id="modal-alerta" class="modal-container">
-            <div class="modal-add-palavra">
-                <div class="modal-header-add-palavra" id="modal-titulo">
-                    <span id="fechaModal" class="close">&times;</span>
-                    <h2>ADICIONAR PALAVRA</h2>
-                </div>
-                <div class="modal-body-add-palavra" id="modal-mensagem">
-                    <input id="addPalavra" type="text" placeholder="PALAVRA" required>
-                    <input id="addCategoria" type="text" placeholder="CATEGORIA" required>
-                    <button onclick="adicionarPalavra()">Adicionar</button>
-                </div>
-            </div>
-        </div>
+        <!-- Elemento de áudio para a música de fundo -->
+        <audio id="background-music" loop>
+            <source src="allow-win-161689.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio HTML5.
+        </audio>
+
+        <!-- Botão de Revisão -->
+        <button class="review_btn" onclick="window.location.href='revisao4.html'">Revisão</button>
     </div>
-    
+
     <div id="status">Modo Automático</div>
     <button id="abreModalAddPalavra"><i class='bx bx-message-square-add'></i></button>
     <img src="img/jogarNovamente.gif" id="jogarNovamente"></img> 
     <button id="recarregar" onclick="sortear()"><i class='bx bx-refresh'></i></button> 
-    <button id="jogarAutomatico" onclick="listaAutomatica()"><i class='bx bx-pause-circle'></i></button>
 
     <script src="fase4.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7H4X39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+        function startBackgroundMusic() {
+            var music = document.getElementById("background-music");
+            music.play();
+        }
+    </script>
 </body>
 </html>
