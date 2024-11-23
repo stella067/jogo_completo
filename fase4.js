@@ -15,7 +15,7 @@ function criarPalavraSecreta(){
     palavraSecretaSorteada = palavras[indexPalavra].nome;
     palavraSecretaCategoria = palavras[indexPalavra].categoria;
 
-    // console.log(palavraSecretaSorteada);
+    console.log(palavraSecretaSorteada);
 }
 
 montarPalavraNaTela();
@@ -103,21 +103,22 @@ function comparalistas(letra){
     if(vitoria == true)
     {
         abreModal("PARABÉNS!", "Você venceu...");
+        
         tentativas = 0;
         piscarBotaoJogarNovamente(true);
     }
 }
 
-// async function piscarBotaoJogarNovamente(){
-//     while (jogarNovamente == true) {
-//         document.getElementById("btnReiniciar").style.backgroundColor = 'red';
-//         document.getElementById("btnReiniciar").style.scale = 1.3;
-//         await atraso(500)
-//         document.getElementById("btnReiniciar").style.backgroundColor = 'yellow';
-//         document.getElementById("btnReiniciar").style.scale = 1;
-//         await atraso(500)
-//     }
-// }
+ async function piscarBotaoJogarNovamente(){
+    while (jogarNovamente == true) {
+        document.getElementById("btnReiniciar").style.backgroundColor = 'red';
+        document.getElementById("btnReiniciar").style.scale = 1.3;
+        await atraso(500)
+        document.getElementById("btnReiniciar").style.backgroundColor = 'yellow';
+        document.getElementById("btnReiniciar").style.scale = 1;
+       await atraso(500)
+    }
+}
 
 async function atraso(tempo){
     return new Promise(x => setTimeout(x, tempo))     
@@ -299,11 +300,5 @@ function resetaTeclas(){
 }
 
 
-async function piscarBotaoJogarNovamente(querJogar){
-    if(querJogar){
-        document.getElementById("jogarNovamente").style.display = "block";
-    }
-    else{
-        document.getElementById("jogarNovamente").style.display = "none";
-    }
-}
+
+
