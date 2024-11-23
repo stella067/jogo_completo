@@ -3,61 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Memória</title>
-    <!-- Adiciona a fonte Poppins do Google Fonts -->
+    <title>JOGO DA MEMÓRIA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background-color: #fff9c4; /* Cor de fundo amarelo claro */
-            font-family: Arial, sans-serif;
+            background-image: url('f3.png');
             background-color: #0e0e0e;
-            background-image: url('f3.png'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            font-family: 'Poppins', sans-serif; /* Aplica a fonte Poppins */
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            text-align: center; /* Centraliza o texto */
+            text-align: center;
         }
-
-        #timer {
-            font-size: 3rem; /* Tamanho do cronômetro */
-            margin-bottom: 3rem;
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
         }
-
+        #timer, #score {
+            font-size: 2rem;
+            color: #ffffff;
+            background-color: #b751e0; /* Fundo sólido sem transparência */
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #000; /* Borda para destaque */
+        }
+        #game-name {
+            font-size: 2.5rem;
+            color: #3406ff;
+            font-weight: 700;
+        }
         .memory-game {
             display: grid;
             grid-template-columns: repeat(4, 200px);
             gap: 10px;
             justify-content: center;
-            align-items: center;
+            visibility: visible; /* As cartas são visíveis desde o início */
         }
-
         .memory-card {
             width: 188px;
             height: 230px;
-            border-radius: 15px;
             position: relative;
-            cursor: pointer;
+            cursor: not-allowed; /* Inicialmente as cartas não são clicáveis */
             transform: scale(1);
             transition: transform 0.5s;
         }
-
-        .memory-card:active {
-            transform: scale(0.97);
-            transition: transform 0.2s;
-        }
-
         .memory-card.flip .memory-card-inner {
             transform: rotateY(180deg);
         }
-
         .memory-card-inner {
             position: absolute;
             width: 100%;
@@ -66,7 +72,6 @@
             transition: transform 0.5s;
             transform-style: preserve-3d;
         }
-
         .memory-card .front-face,
         .memory-card .back-face {
             position: absolute;
@@ -75,172 +80,179 @@
             border-radius: 15px;
             backface-visibility: hidden;
         }
-
         .memory-card .front-face {
             transform: rotateY(180deg);
         }
-
         .memory-card .back-face {
             background: url('verso.jpg') no-repeat center center;
             background-size: cover;
         }
-
         .memory-card.match {
             background-color: #b0bec5;
             cursor: default;
         }
-        #timer {
-    font-size: 3rem; /* Tamanho do cronômetro */
-    margin-bottom: 3rem;
-    color: #ffffff; /* Cor branca */
-    text-shadow: 0 0 20px rgba(255, 255, 255, 1),   /* Efeito de brilho maior */
-                 0 0 40px rgba(255, 255, 255, 0.8),
-                 0 0 60px rgba(255, 255, 255, 0.6),
-                 0 0 80px rgba(255, 255, 255, 0.4);
-}
-
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+            position: absolute;
+            bottom: 20px;
+        }
+        .button-container button {
+            background-color: #1f946d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .button-container button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
 
-    <div id="timer">00:30</div>
-    
+<div class="header">
+    <div id="timer">03:00</div>
+    <div id="game-name"></div>
+    <div id="score">Pontos: 0</div>
+</div>
 
-    <div class="memory-game">
-        <div class="memory-card" data-card="1">
-            <div class="memory-card-inner">
-                <img src="A.jpg" alt="Card 1" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="1">
-            <div class="memory-card-inner">
-                <img src="A1.jpg" alt="Card 1" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="2">
-            <div class="memory-card-inner">
-                <img src="B.jpg" alt="Card 2" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="2">
-            <div class="memory-card-inner">
-                <img src="B1.jpg" alt="Card 2" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="3">
-            <div class="memory-card-inner">
-                <img src="J.jpg" alt="Card 3" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="3">
-            <div class="memory-card-inner">
-                <img src="J1.jpg" alt="Card 3" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="4">
-            <div class="memory-card-inner">
-                <img src="M.jpg" alt="Card 4" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-        <div class="memory-card" data-card="4">
-            <div class="memory-card-inner">
-                <img src="M1.jpg" alt="Card 4" class="front-face">
-                <div class="back-face"></div>
-            </div>
-        </div>
-    </div>
+<div class="memory-game" id="memory-game"></div>
 
-    <script>
-        const cards = document.querySelectorAll('.memory-card');
-        let hasFlippedCard = false;
-        let lockBoard = false;
-        let firstCard, secondCard;
-        let matches = 0;
+<div class="button-container">
+    <button id="start-music-button" onclick="startMusic()">Iniciar Música</button>
+    <button onclick="window.location.href='revisao3.html'">Revisão</button>
+    <button id="start-game-button" onclick="startGame()">Iniciar Jogo</button>
+</div>
 
-        function flipCard() {
-            if (lockBoard) return;
-            if (this === firstCard) return;
+<script>
+    const cardsData = {
+        1: ['Aa.jpg', 'Aa1.jpg', 'Bb.jpg', 'Bb1.jpg', 'Jj.jpg', 'Jj1.jpg', 'Mm.jpg', 'Mm1.jpg'],
+        2: ['Cc.jpg', 'Cc1.jpg', 'Dd.jpg', 'Dd1.jpg', 'Ee.jpg', 'Ee1.jpg', 'Ff.jpg', 'Ff1.jpg'],
+        3: ['Gg.jpg', 'Gg1.jpg', 'Hh.jpg', 'Hh1.jpg', 'Ll.jpg', 'Ll1.jpg', 'Kk.jpg', 'Kk1.jpg']
+    };
 
-            this.classList.add('flip');
+    const gameContainer = document.getElementById('memory-game');
+    const scoreElement = document.getElementById('score');
+    const timerElement = document.getElementById('timer');
+    const music = new Audio('allow-win-161689.mp3'); // Substitua com o caminho da sua música
+    let hasFlippedCard = false;
+    let lockBoard = false;
+    let firstCard, secondCard;
+    let matches = 0;
+    let round = 1;
+    let score = 0;
+    let timeLeft = 60;
+    let countdown;
 
-            if (!hasFlippedCard) {
-                hasFlippedCard = true;
-                firstCard = this;
-                return;
-            }
+    function createCards() {
+        gameContainer.innerHTML = '';
+        const cardImages = cardsData[round];
+        const cards = [];
 
-            secondCard = this;
-            checkForMatch();
+        cardImages.forEach((img, index) => {
+            const cardHTML = `
+                <div class="memory-card" data-card="${Math.floor(index / 2)}" onclick="flipCard(this)">
+                    <div class="memory-card-inner">
+                        <img src="${img}" class="front-face">
+                        <div class="back-face"></div>
+                    </div>
+                </div>`;
+            cards.push(cardHTML);
+        });
+
+        gameContainer.innerHTML = cards.join('');
+        shuffle();
+    }
+
+    function flipCard(card) {
+        if (lockBoard) return;
+        if (card === firstCard) return;
+
+        card.classList.add('flip');
+        if (!hasFlippedCard) {
+            hasFlippedCard = true;
+            firstCard = card;
+            return;
         }
 
-        function checkForMatch() {
-            let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+        secondCard = card;
+        checkForMatch();
+    }
 
-            if (isMatch) {
-                disableCards();
-                matches++;
-                console.log(`Matches: ${matches}`); // Adiciona um log para verificar o número de pares
-                if (matches === 4) {  // Número total de pares ajustado para 4 pares
-                    setTimeout(() => {
-                        console.log('Você ganhou!'); // Adiciona um log para verificar se o redirecionamento está funcionando
-                        window.location.href = 'vitoria.html';
-                    }, 1000);
-                }
-            } else {
-                unflipCards();
+    function checkForMatch() {
+        const isMatch = firstCard.dataset.card === secondCard.dataset.card;
+        if (isMatch) {
+            disableCards();
+            updateScore();
+            matches++;
+            if (matches === 4) {
+                setTimeout(() => nextRound(), 1000);
             }
+        } else {
+            unflipCards();
         }
+    }
 
-        function disableCards() {
-            firstCard.removeEventListener('click', flipCard);
-            secondCard.removeEventListener('click', flipCard);
-            firstCard.classList.add('match');
-            secondCard.classList.add('match');
+    function disableCards() {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        resetBoard();
+    }
 
+    function unflipCards() {
+        lockBoard = true;
+        setTimeout(() => {
+            firstCard.classList.remove('flip');
+            secondCard.classList.remove('flip');
             resetBoard();
+        }, 1500);
+    }
+
+    function resetBoard() {
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+    }
+
+    function updateScore() {
+        score += 10;
+        scoreElement.textContent = `Pontos: ${score}`;
+    }
+
+    function nextRound() {
+        if (round === 3) {
+            window.location.href = 'vitoria.html';
+        } else {
+            round++;
+            matches = 0;
+            resetTimer();
+            createCards();
         }
+    }
 
-        function unflipCards() {
-            lockBoard = true;
+    function shuffle() {
+        const cards = document.querySelectorAll('.memory-card');
+        cards.forEach(card => {
+            let randomPos = Math.floor(Math.random() * cards.length);
+            card.style.order = randomPos;
+        });
+    }
 
-            setTimeout(() => {
-                firstCard.classList.remove('flip');
-                secondCard.classList.remove('flip');
+    function resetTimer() {
+        clearInterval(countdown);
+        timeLeft = 60;
+        startTimer();
+    }
 
-                resetBoard();
-            }, 1500);
-        }
-
-        function resetBoard() {
-            [hasFlippedCard, lockBoard] = [false, false];
-            [firstCard, secondCard] = [null, null];
-        }
-
-        (function shuffle() {
-            cards.forEach(card => {
-                let randomPos = Math.floor(Math.random() * cards.length);
-                card.style.order = randomPos;
-            });
-        })();
-
-        cards.forEach(card => card.addEventListener('click', flipCard));
-
-        // Cronômetro
-        let timeLeft = 30; // 30 segundos
-        const timer = document.getElementById('timer');
-
-        const countdown = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            timer.textContent = `${minutes}:${seconds}`;
+    function startTimer() {
+        countdown = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             timeLeft--;
 
             if (timeLeft < 0) {
@@ -248,6 +260,27 @@
                 window.location.href = 'derrota.html';
             }
         }, 1000);
-    </script>
+    }
+
+    function startGame() {
+        gameContainer.style.visibility = "visible"; // As cartas ficam visíveis
+        createCards();
+        startTimer(); // Iniciar o cronômetro
+        const cards = document.querySelectorAll('.memory-card');
+        cards.forEach(card => {
+            card.style.cursor = 'pointer'; // Tornar as cartas clicáveis após iniciar o jogo
+        });
+    }
+
+    function startMusic() {
+        music.play();
+    }
+
+    // Inicializa a música ao carregar a página
+    window.onload = function() {
+        music.loop = true;
+    }
+</script>
+
 </body>
 </html>
