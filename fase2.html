@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplicativo de teste incrível</title>
     <link rel="stylesheet" href="fase2.css">
-    <!-- FontAweome CDN Link for Icons -->
+    <!-- FontAwesome CDN Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <style>
         .button {
@@ -32,6 +32,17 @@
             border-radius: 4px;
             font-weight: bold;
         }
+        .review_btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #C8A2C8;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +57,6 @@
             <div class="info">2. Uma vez que você selecionar sua resposta, não poderá desfazê-la.</div>
             <div class="info">3. Você não pode selecionar nenhuma opção, uma vez que o tempo se esgote.</div>
             <div class="info">4. Você não pode sair do Quiz enquanto estiver jogando.</div>
-        
         </div>
         <div class="buttons">
             <button class="quit">Sair Quiz</button>
@@ -105,8 +115,11 @@
     <!-- Elemento de áudio para a música de fundo -->
     <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
-        Seu navegador não suporta áudio HTML5.
+        Seu navegador não suporta áudio HTML5.S
     </audio>
+
+    <!-- Botão de Revisão -->
+    <button class="review_btn" onclick="window.location.href='revisao2.html'">Revisão</button>
 
     <!-- Script para lidar com o Quiz -->
     <script src="fase2.js"></script>
