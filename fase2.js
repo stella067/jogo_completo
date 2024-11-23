@@ -1,9 +1,8 @@
 let questions = [
     {
         numb: 1,
-        question: "Dica: Refere-se  a uma criança",
+        question: "Dica: Refere-se a uma criança",
         answer: "bebê",
-
         options: [
             "bêbe",
             "bebê"
@@ -92,7 +91,7 @@ let questions = [
     },
     {
         numb: 10,
-        question: "Diva: Utilizada para falar e comer",
+        question: "Dica: Utilizada para falar e comer",
         answer: "língua",
         options: [
             "língua",
@@ -100,6 +99,56 @@ let questions = [
         ],
         hint: "Utilizada para falar e comer."
     },
+    {
+        numb: 11,
+        question: "Dica: refere-se a uma coisa relacionada com o tórax",
+        answer: "torácico",
+        options: [
+            "toráxico",
+            "tóraxico"
+        ],
+        hint: "é uma coisa relacionada com o tórax."
+    },
+    {
+        numb: 12,
+        question: "Dica: refere-se a uma vantagem ou direito concedido apenas a algumas pessoas",
+        answer: "privilégio",
+        options: [
+            "privilégio",
+            "privilegió"
+        ],
+        hint: "Vantagem ou direito concedido apenas a certas pessoas."
+    },
+    {
+        numb: 13,
+        question: "Dica: indica o principal órgão do sistema central",
+        answer: "cérebro",
+        options: [
+            "célebro",
+            "cérebro"
+        ],
+        hint: "Um dos principais órgãos do corpo."
+    },
+    {
+        numb: 14,
+        question: "Dica: colocar, botar algo em um lugar",
+        answer: "pôr",
+        options: [
+            "por",
+            "pôr"
+        ],
+        hint: "Colocar algo em algum lugar ou posição."
+    },
+    {
+        numb: 15,
+        question: "Dica: é muito usado para adoçar alimentos e bebidas",
+        answer: "açúcar",
+        options: [
+            "açucar",
+            "açúcar"
+        ],
+        hint: "Substância doce, geralmente em pó ou em cristais."
+    }
 ];
 
-    
+
