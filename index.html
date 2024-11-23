@@ -1,134 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ajuda - Fase 1</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #6D4A73; /* Dark purple background */
-    }
-    .title-banner {
-      background-color: #A87B5B; /* Brown */
-      color: #C198D8; /* Soft lavender text */
-      font-weight: bold;
-      font-size: 2rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      text-align: center;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    body{
-    width: 100vw;
-    height: 90vh;
-    margin-top: 10px;
-    background-image: url("1.png"); /* Adicione o URL da imagem aqui */
-    background-size: cover; /* A imagem cobre toda a área da tela */
-    background-position: center; /* Centraliza a imagem de fundo */
-    background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
-    font-family: 'Ubuntu', sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magia Ortográfica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-    .tab {
-      background-color: #735840; /* Darker brown for tabs */
-      color: #C198D8; /* Soft lavender text */
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      text-align: center;
-      border-radius: 0.5rem 0.5rem 0 0;
-      cursor: pointer;
-    }
-    .tab-content {
-      background-color: #A87B5B; /* Brown panel */
-      color: #F3E5F5; /* Lighter purple text */
-      font-size: 1rem;
-      padding: 1rem;
-      border-radius: 0 0 1rem 1rem;
-      width: 100%;
-      display: none; /* Hidden by default */
-    }
-    .active {
-      display: block; /* Show active content */
-    }
-    .button {
-      background-color: #A87B5B; /* Brown */
-      color: #C198D8; /* Soft lavender text */
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 0.5rem 2rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      text-align: center;
-      margin: 1rem auto;
-      display: inline-block;
-    }
-    .witch-image {
-      width: 120px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  </style>
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('IMG_6385 (1).jpg') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+
+        h1 {
+            font-size: 4rem;
+            color: #44c965;
+            text-shadow: 3px 3px 0px #33da57,
+                         6px 6px 0px #ff0000;
+            margin-bottom: 50px;
+        }
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+
+        ul li {
+            margin: 20px 0;
+            font-size: 1.5rem;
+        }
+
+
+        ul li a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+
+        ul li a:hover {
+            color: #00ff2a;
+        }
+    </style>
 </head>
-<body class="flex justify-center items-center min-h-screen">
-  <div class="w-full max-w-lg p-4">
-    <div class="title-banner">AJUDA</div>
-    
-    <!-- Tabs -->
-    <div class="flex justify-around">
-      <div class="tab w-1/2" onclick="showContent('regras')">REGRAS</div>
-      <div class="tab w-1/2" onclick="showContent('aprender')">APRENDER</div>
-    </div>
-
-    <!-- Content Area -->
-    <div id="regras" class="tab-content active">
-      <div class="flex">
-        <!-- Witch Image -->
-        <img src="IMG_9112.png" alt="Imagem da bruxa" class="witch-image mr-4">
-
-        <div>
-          <h2 class="font-bold mb-2" style="color: #D3B5E5;">Regras da Fase 1:</h2>
-          <ul class="list-decimal pl-4">
-            <li>O objetivo é clicar na palavra correta entre as opções.</li>
-            <li>As palavras incluirão variações de SS, S, CH, X e Ç.</li>
-            <li>Dez acertos são necessários para avançar.</li>
-            <li>Um erro leva o jogador a reiniciar a fase.</li>
-            <li>Ao completar 10 acertos, o jogador avança para a próxima fase.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div id="aprender" class="tab-content">
-      <div class="flex">
-        <!-- Witch Image -->
-        <img src="IMG_9112.png" alt="Imagem da bruxa" class="witch-image mr-4">
-
-        <div>
-          <h2 class="font-bold mb-2" style="color: #D3B5E5;">Ortografia: Aprendendo sobre SS, S, CH, X e Ç</h2>
-          <p class="mb-4">Nesta fase do jogo, você irá aprender a diferença entre algumas letras e combinações que são frequentemente confundidas. Aqui estão algumas dicas para ajudá-lo:</p>
-          <ul class="list-disc pl-4 mb-4">
-            <li><strong>SS:</strong> Som forte de “s” após uma vogal tônica. Ex: “passar”, “massa”.</li>
-            <li><strong>S:</strong> Som leve de “s”. Ex: “sapato”, “casa”.</li>
-            <li><strong>CH:</strong> Som como “ch” em “chocolate”. Ex: “chave”, “chover”.</li>
-            <li><strong>X:</strong> Som de “s” ou “ks”. Ex: “exato” (som de “z”), “táxi” (som de “ks”).</li>
-            <li><strong>Ç:</strong> Som de “s” antes de “a”, “o” ou “u”. Ex: “coração”, “açaí”.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-
-  <script>
-    function showContent(tab) {
-      // Hide all tab contents
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      
-      // Show the selected tab content
-      document.getElementById(tab).classList.add('active');
-    }
-  </script>
+<body>
+    <div class="background"></div>
+    <h1>Magia Ortográfica</h1>
+    <ul>
+        <li><a href="fases.html">Jogar</a></li>
+        <li><a href="sobre.html">Sobre o Jogo</a></li>
+        <li><a href="exit.html">Sair</a></li>
+    </ul>
 </body>
 </html>
